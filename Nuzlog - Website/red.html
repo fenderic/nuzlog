@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="css/reset.css" type="text/css">
+	<link rel="stylesheet" href="css/screen.css" type="text/css">
+<title>Nuzlocker</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+</script>
+</head>
+<body>
+	<header>
+		<h1>Nuzlocker</h1>
+		<h2>
+		<p><strong>Version 1.0</strong><br />
+            <a href="http://twitter.com/fenderic" title="@fenderic" target="_blank">@fenderic on Twitter</a><br />
+			<a href="http://www.nuzlocke.com" target="_blank">Nuzlocke.com</a>
+			</h2>
+	</header>
+	
+<p><button onClick="clickCounter()" type="button">Click me!</button></p>
+<div id="result"></div>
+<p>Click the button to see the counter increase.</p>
+<p>Close the browser tab (or window), and try again, and the counter will continue to count (is not reset).</p>
+
+<p><button onClick="clearStorage()" type="button">Clear localStorage</button></p>
+<br>
+<form>
+<br><br>
+What version are you playing?:
+<select id="PKMN_v" onChange="gameVersion()">
+  <option id="blank">--</option>
+  <option id="red">Red Version</option>
+  <option id="blue">Blue Version</option>
+  <option id="death">KILLED</option>
+</select>
+<p>Your are currently playing: <div id="version"></div></p>
+
+<br>
+Pallet Town:
+<select id="PKMN_pt" onChange="palletTown()">
+  <option id="blank">--</option>
+  <option id="001">Bulbasaur</option>
+  <option id="004">Charmander</option>  
+  <option id="007">Squirtle</option>
+  <option id="001">Magikarp</option>
+  <option id="004">Poliwag</option>  
+  <option id="007">Goldeen</option>  
+  <option id="007">Tentacool</option>
+</select>
+<div id="pallet"></div><div id="palletIMG"></div><br>
+<div id="pallet_doa"><input type="radio" name="pt_doa" id="pt_a" onClick='localStorage.pt_doa="alive"; printPallet();' checked>Alive
+<input type="radio" name="pt_doa" id="pt_d" onClick='localStorage.pt_doa="dead"; printPallet();'>Dead</div>
+
+<br>
+Route 1:
+<!--<select id="PKMN_r1" onChange="route1()">-->
+<!--<select id="PKMN_r1" onChange="printRoute(localStorage.r1, 'PKMN_r1', 'route1', localStorage.r1ID, 'r1IMG')">-->
+  <select id="PKMN_r1" onChange="route(localStorage.r1, 'PKMN_r1', localStorage.r1ID)">
+  <option id="blank">--</option>
+  <option id="016">Pidgey</option>
+  <option id="019">Rattata</option>
+</select>
+<div id="route1"></div><div id="r1IMG"></div><br>
+<div id="route1_doa"><input type="radio" name="r1_doa" id="r1_a" onClick="localStorage.r1_doa='alive'; printRoute(localStorage.r1, 'PKMN_r1', 'route1', localStorage.r1ID, 'r1IMG')" checked>Alive
+<input type="radio" name="r1_doa" id="r1_d" onClick="localStorage.r1_doa='dead'; printRoute(localStorage.r1, 'PKMN_r1', 'route1', localStorage.r1ID, 'r1IMG')">Dead</div>
+
+
+<br>
+Route 2:
+<select id="PKMN_r2" onChange="route2()">
+  <option id="blank">--</option>
+  <option id="016">Pidgey</option>
+  <option id="019">Rattata</option>
+  <option id="016">Weedle</option>
+  <option id="019">Mr. Mime</option>
+</select>
+<div id="route2"></div><div id="r2IMG"></div>
+
+
+<br>
+Route 3:
+<select id="PKMN_r3" onChange="route3()">
+  <option id="blank">--</option>
+  <option id="016">Pidgey</option>
+  <option id="019">Spearow</option>
+  <option id="019">Jigglypuff</option>
+</select>
+<div id="route3"></div><div id="r3IMG"></div>
+
+
+<br>
+Route 4:
+<select id="PKMN_r4" onChange="route4()">
+  <option id="blank">--</option>
+  <option id="016">Spearow</option>
+  <option id="019">Rattata</option>
+  <option id="016">Ekans</option>
+  <option id="019">Magikarp</option>
+  <option id="016">Poliwag</option>
+  <option id="019">Goldeen</option>
+  <option id="016">Psyduck</option>
+  <option id="019">Krabby</option>
+  <option id="019">Goldeen</option>
+</select>
+<div id="route4"></div><div id="r4IMG"></div>
+
+
+<br>
+Route 5:
+<select id="PKMN_r5" onChange="route5()">
+  <option id="blank">--</option>
+  <option id="016">Oddish</option>
+  <option id="016">Pidgey</option>
+  <option id="016">Mankey</option>
+  <option id="016">Nidoran F</option>
+</select>
+<div id="route5"></div><div id="r5IMG"></div>
+
+
+<br>
+Route 6:
+<select id="PKMN_r6" onChange="route6()">
+  <option id="blank">--</option>
+  <option id="016">Oddish</option>
+  <option id="019">Mankey</option>
+  <option id="016">Pidgey</option>
+  <option id="019">Magikarp</option>
+  <option id="016">Poliwag</option>
+  <option id="019">Goldeen</option>
+  <option id="016">Shellder</option>
+  <option id="019">Krabby</option>
+</select>
+<div id="route6"></div><div id="r6IMG"></div>
+
+
+
+<br>
+Route 7:
+<select id="PKMN_r7" onChange="route7()">
+  <option id="blank">--</option>
+  <option id="016">Pidgey</option>
+  <option id="019">Mankey</option>
+  <option id="016">Oddish</option>
+  <option id="019">Growlithe</option>
+</select>
+<div id="route7"></div><div id="r7IMG"></div>
+
+
+
+
+<br>
+Route 8:
+<select id="PKMN_r8" onChange="route8()">
+  <option id="blank">--</option>
+  <option id="016">Pidgey</option>
+  <option id="019">Mankey</option>
+  <option id="016">Ekans</option>
+  <option id="019">Growlithe</option>
+</select>
+<div id="route8"></div><div id="r8IMG"></div>
+
+
+
+<br>
+Route 9:
+<select id="PKMN_r9" onChange="route9()">
+  <option id="blank">--</option>
+  <option id="016">Rattata</option>
+  <option id="019">Spearow</option>
+  <option id="016">Ekans</option>
+</select>
+<div id="route9"></div><div id="r9IMG"></div>
+
+
+
+
+<br>
+Route 10:
+<select id="PKMN_r10" onChange="route10()">
+  <option id="blank">--</option>
+  <option id="016">Voltorb</option>
+  <option id="019">Spearow</option>
+  <option id="016">Ekans</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwhirl</option>
+  <option id="016">Slowpoke</option>
+</select>
+<div id="route10"></div><div id="r10IMG"></div>
+
+
+
+
+<br>
+Route 11:
+<select id="PKMN_r11" onChange="route11()">
+  <option id="blank">--</option>
+  <option id="016">Ekans</option>
+  <option id="019">Spearow</option>
+  <option id="016">Drowzee</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="016">Shellder</option>
+  <option id="019">Krabby</option>
+  <option id="016">Nidorina</option>
+</select>
+<div id="route11"></div><div id="r11IMG"></div>
+
+
+
+<br>
+Route 12:
+<select id="PKMN_r12" onChange="route12()">
+  <option id="blank">--</option>
+  <option id="016">Oddish</option>
+  <option id="019">Pidgey</option>
+  <option id="016">Venonat</option>
+  <option id="016">Gloom</option>
+  <option id="019">Magikarp</option>
+  <option id="016">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Tentacool</option>
+  <option id="016">Krabby</option>
+  <option id="016">Snorlax</option>
+</select>
+<div id="route12"></div><div id="r12IMG"></div>
+
+
+
+<br>
+Route 13:
+<select id="PKMN_r13" onChange="route13()">
+  <option id="blank">--</option>
+  <option id="016">Oddish</option>
+  <option id="019">Pidgey</option>
+  <option id="016">Venonat</option>
+  <option id="016">Gloom</option>
+  <option id="016">Ditto</option>
+  <option id="019">Magikarp</option>
+  <option id="016">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Tentacool</option>
+  <option id="016">Krabby</option>
+</select>
+<div id="route13"></div><div id="r13IMG"></div>
+
+
+
+<br>
+Route 14:
+<select id="PKMN_r14" onChange="route14()">
+  <option id="blank">--</option>
+  <option id="016">Oddish</option>
+  <option id="019">Pidgey</option>
+  <option id="019">Pidgeotto</option>
+  <option id="016">Venonat</option>
+  <option id="016">Gloom</option>
+  <option id="016">Ditto</option>
+  <option id="019">Magikarp</option>
+  <option id="016">Poliwag</option>
+  <option id="016">Goldeen</option>
+</select>
+<div id="route14"></div><div id="r14IMG"></div>
+
+
+
+<br>
+Route 15:
+<select id="PKMN_r15" onChange="route15()">
+  <option id="blank">--</option>
+  <option id="016">Oddish</option>
+  <option id="019">Pidgey</option>
+  <option id="019">Pidgeotto</option>
+  <option id="016">Venonat</option>
+  <option id="016">Gloom</option>
+  <option id="016">Ditto</option>
+</select>
+<div id="route15"></div><div id="r15IMG"></div>
+
+
+
+<br>
+Route 16:
+<select id="PKMN_r16" onChange="route16()">
+  <option id="blank">--</option>
+  <option id="016">Spearow</option>
+  <option id="019">Rattata</option>
+  <option id="019">Doduo</option>
+  <option id="016">Raticate</option>
+  <option id="016">Snorlax</option>
+</select>
+<div id="route16"></div><div id="r16IMG"></div>
+
+
+<br>
+Route 17:
+<select id="PKMN_r17" onChange="route17()">
+  <option id="blank">--</option>
+  <option id="016">Spearow</option>
+  <option id="019">Raticate</option>
+  <option id="019">Doduo</option>
+  <option id="016">Fearow</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="016">Tentacool</option>
+  <option id="019">Krabby</option>
+</select>
+<div id="route17"></div><div id="r17IMG"></div>
+
+
+
+<br>
+Route 18:
+<select id="PKMN_r18" onChange="route18()">
+  <option id="blank">--</option>
+  <option id="016">Spearow</option>
+  <option id="019">Raticate</option>
+  <option id="019">Doduo</option>
+  <option id="016">Fearow</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="016">Tentacool</option>
+  <option id="019">Krabby</option>
+  <option id="019">Lickitung</option>
+</select>
+<div id="route18"></div><div id="r18IMG"></div>
+
+
+
+<br>
+Route 19:
+<select id="PKMN_r19" onChange="route19()">
+  <option id="blank">--</option>
+  <option id="016">Tentacool</option>
+  <option id="019">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="016">Shellder</option>
+  <option id="019">Horsea</option>
+  <option id="016">Staryu</option>
+</select>
+<div id="route19"></div><div id="r19IMG"></div>
+
+
+
+<br>
+Route 20:
+<select id="PKMN_r20" onChange="route20()">
+  <option id="blank">--</option>
+  <option id="016">Tentacool</option>
+  <option id="019">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="016">Shellder</option>
+  <option id="019">Horsea</option>
+  <option id="016">Staryu</option>
+</select>
+<div id="route20"></div><div id="r20IMG"></div>
+
+
+
+
+<br>
+Route 21:
+<select id="PKMN_r21" onChange="route21()">
+  <option id="blank">--</option>
+  <option id="016">Rattata</option>
+  <option id="019">Pidgey</option>
+  <option id="019">Pidgeotto</option>
+  <option id="016">Raticate</option>
+  <option id="019">Tangela</option>
+  <option id="016">Tentacool</option>
+  <option id="019">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="016">Shellder</option>
+  <option id="019">Horsea</option>
+  <option id="016">Staryu</option>
+</select>
+<div id="route21"></div><div id="r21IMG"></div>
+
+
+
+
+<br>
+Route 22:
+<select id="PKMN_r22" onChange="route22()">
+  <option id="blank">--</option>
+  <option id="016">Rattata</option>
+  <option id="019">Nidoran M</option>
+  <option id="019">Nidoran F</option>
+  <option id="019">Spearow</option>
+  <option id="019">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+</select>
+<div id="route22"></div><div id="r22IMG"></div>
+
+
+
+<br>
+Route 23:
+<select id="PKMN_r23" onChange="route23()">
+  <option id="blank">--</option>
+  <option id="016">Ditto</option>
+  <option id="019">Fearow</option>
+  <option id="019">Ekans</option>
+  <option id="019">Spearow</option>
+  <option id="019">Arbok</option>
+  <option id="019">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Slowbro</option>
+  <option id="019">Kingler</option>
+  <option id="019">Seadra</option>
+  <option id="016">Seaking</option>
+</select>
+<div id="route23"></div><div id="r23IMG"></div>
+
+
+
+<br>
+Route 24:
+<select id="PKMN_r24" onChange="route24()">
+  <option id="blank">--</option>
+  <option id="016">Weedle</option>
+  <option id="019">Oddish</option>
+  <option id="019">Pidgey</option>
+  <option id="019">Kakuna</option>
+  <option id="019">Abra</option>
+  <option id="019">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Psyduck</option>
+  <option id="019">Krabby</option>
+</select>
+<div id="route24"></div><div id="r24IMG"></div>
+
+
+
+<br>
+Route 25:
+<select id="PKMN_r25" onChange="route25()">
+  <option id="blank">--</option>
+  <option id="016">Weedle</option>
+  <option id="019">Oddish</option>
+  <option id="019">Pidgey</option>
+  <option id="019">Kakuna</option>
+  <option id="019">Abra</option>
+  <option id="019">Metapod</option>
+  <option id="019">Caterpie</option>
+  <option id="019">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Psyduck</option>
+  <option id="019">Krabby</option>
+</select>
+<div id="route25"></div><div id="r25IMG"></div>
+
+
+
+<br>
+Viridian City:
+<select id="PKMN_vc" onChange="viridianCity()">
+  <option id="blank">--</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Tentacool</option>
+</select>
+<div id="viridian"></div><div id="viridianIMG"></div>
+
+
+
+<br>
+Cerulean City:
+<select id="PKMN_cc" onChange="ceruleanCity()">
+  <option id="blank">--</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Psyduck</option>
+  <option id="016">Krabby</option>
+  <option id="019">Jynx</option>
+</select>
+<div id="cerulean"></div><div id="ceruleanIMG"></div>
+
+
+
+<br>
+Vermillion City:
+<select id="PKMN_vc" onChange="vermillionCity()">
+  <option id="blank">--</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Shellder</option>
+  <option id="016">Krabby</option>
+  <option id="019">Farfetch'd</option>
+</select>
+<div id="vermillion"></div><div id="vermillionIMG"></div>
+
+
+<br>
+Celadon City:
+<select id="PKMN_cc" onChange="celadonCity()">
+  <option id="blank">--</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Poliwhirl</option>
+  <option id="016">Slowpoke</option>
+  <option id="019">Eevee</option>
+</select>
+<div id="celadon"></div><div id="celadonIMG"></div>
+
+
+
+<br>
+Saffron City:
+<select id="PKMN_sc" onChange="saffronCity()">
+  <option id="blank">--</option>
+  <option id="016">Hitmonlee</option>
+  <option id="019">Hitmonchan</option>
+</select>
+<div id="saffron"></div><div id="saffronIMG"></div>
+
+
+
+<br>
+Fuchsia City:
+<select id="PKMN_fc" onChange="fuchsiaCity()">
+  <option id="blank">--</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Krabby</option>
+  <option id="016">Seaking</option>
+</select>
+<div id="fuchsia"></div><div id="fuchsiaIMG"></div>
+
+
+
+<br>
+Cinnabar Island:
+<select id="PKMN_ci" onChange="cinnabarIsland()">
+  <option id="blank">--</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Shellder</option>
+  <option id="016">Horsea</option>
+  <option id="016">Staryu</option>
+  <option id="019">Omanyte</option>
+  <option id="016">Kabuto</option>
+  <option id="016">Aerodactyl</option>
+  <option id="019">Seel</option>
+  <option id="016">Electrode</option>
+  <option id="016">Tangela</option>
+</select>
+<div id="cinnabar"></div><div id="cinnabarIMG"></div>
+
+
+
+<br>
+Viridian Forest:
+<select id="PKMN_vf" onChange="viridianForest()">
+  <option id="blank">--</option>
+  <option id="016">Weedle</option>
+  <option id="019">Kakuna</option>
+  <option id="016">Caterpie</option>
+  <option id="019">Metapod</option>
+  <option id="016">Pikachu</option>
+</select>
+<div id="viridianf"></div><div id="viridianfIMG"></div>
+
+
+
+<br>
+Diglett's Cave:
+<select id="PKMN_dc" onChange="diglettscave()">
+  <option id="blank">--</option>
+  <option id="016">Diglett</option>
+  <option id="019">Dugtrio</option>
+</select>
+<div id="digletts"></div><div id="diglettsIMG"></div>
+
+
+
+<br>
+Mt. Moon:
+<select id="PKMN_mm" onChange="mtMoon()">
+  <option id="blank">--</option>
+  <option id="016">Zubat</option>
+  <option id="019">Geodude</option>
+  <option id="016">Paras</option>
+  <option id="019">Clefairy</option>
+</select>
+<div id="moon"></div><div id="moonIMG"></div>
+
+
+
+<br>
+Cerulean Cave:
+<select id="PKMN_cc" onChange="ceruleanCave()">
+  <option id="blank">--</option>
+  <option id="016">Golbat</option>
+  <option id="019">Magneton</option>
+  <option id="016">Hypno</option>
+  <option id="019">Arbok</option>
+  <option id="016">Venomoth</option>
+  <option id="019">Dodrio</option>
+  <option id="016">Parasect</option>
+  <option id="019">Kadabra</option>
+  <option id="016">Raichu</option>
+  <option id="019">Ditto</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="019">Slowbro</option>
+  <option id="016">Kingler</option>
+  <option id="019">Seadra</option>
+  <option id="019">Seaking</option>
+  <option id="016">Electrode</option>
+  <option id="019">Marowak</option>
+  <option id="016">Rhydon</option>
+  <option id="019">Wigglytuff</option>
+  <option id="016">Chansey</option>
+  <option id="019">Mewtwo</option>
+</select>
+<div id="ceruleanc"></div><div id="ceruleancIMG"></div>
+
+
+
+<br>
+Rock Tunnel:
+<select id="PKMN_rt" onChange="rockTunnel()">
+  <option id="blank">--</option>
+  <option id="016">Zubat</option>
+  <option id="019">Geodude</option>
+  <option id="016">Machop</option>
+  <option id="019">Onix</option>n>
+</select>
+<div id="rock"></div><div id="rockIMG"></div>
+
+
+
+<br>
+Power Plant:
+<select id="PKMN_pp" onChange="powerPlant()">
+  <option id="blank">--</option>
+  <option id="016">Voltorb</option>
+  <option id="019">Pikachu</option>
+  <option id="016">Magnemite</option>
+  <option id="019">Magneton</option>
+  <option id="016">Electabuzz</option>
+  <option id="019">Zapados</option>
+</select>
+<div id="power"></div><div id="powerIMG"></div>
+
+<br>
+Silph Co:
+<select id="PKMN_sc" onChange="silphCo()">
+  <option id="blank">--</option>
+  <option id="016">Lapras</option>
+</select>
+<div id="silph"></div><div id="silphIMG"></div>
+
+
+
+<br>
+Safari Zone:
+<select id="PKMN_sz" onChange="safariZone()">
+  <option id="blank">--</option>
+  <option id="016">Nidoran M</option>
+  <option id="019">Nidoran F</option>
+  <option id="016">Exeggcute</option>
+  <option id="016">Venonat</option>
+  <option id="019">Venomoth</option>
+  <option id="016">Rhyhorn</option>
+  <option id="016">Nidorino</option>
+  <option id="019">Nidorina</option>
+  <option id="016">Parasect</option>
+  <option id="016">Paras</option>
+  <option id="019">Scyther</option>
+  <option id="016">Chansey</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="016">Psyduck</option>
+  <option id="019">Slowpoke</option>
+  <option id="016">Krabby</option>
+  <option id="016">Dratini</option>
+  <option id="019">Doduo</option>
+  <option id="016">Tauros</option>
+  <option id="016">Kangaskhan</option>
+</select>
+<div id="safari"></div><div id="safariIMG"></div>
+
+
+<br>
+Pokemon Tower:
+<select id="PKMN_pt" onChange="pokemonTower()">
+  <option id="blank">--</option>
+  <option id="016">Gastly</option>
+  <option id="019">Cubone</option>
+  <option id="016">Haunter</option>
+</select>
+<div id="tower"></div><div id="towerIMG"></div>
+
+
+
+<br>
+Seafoam Islands:
+<select id="PKMN_si" onChange="seafoamIslands()">
+  <option id="blank">--</option>
+  <option id="016">Magikarp</option>
+  <option id="019">Poliwag</option>
+  <option id="016">Goldeen</option>
+  <option id="016">Seel</option>
+  <option id="019">Dewgong</option>
+  <option id="016">Horsea</option>
+  <option id="016">Seadra</option>
+  <option id="019">Krabby</option>
+  <option id="016">Kingler</option>
+  <option id="016">Shellder</option>
+  <option id="019">Staryu</option>
+  <option id="016">Slowpoke</option>
+  <option id="016">Slowbro</option>
+  <option id="019">Zubat</option>
+  <option id="016">Golbat</option>
+  <option id="016">Psyduck</option>
+  <option id="019">Golduck</option>
+  <option id="016">Articuno</option>
+</select>
+<div id="seafoam"></div><div id="seafoamIMG"></div>
+
+
+
+<br>
+Pokemon Mansion:
+<select id="PKMN_pm" onChange="pokemonMansion()">
+  <option id="blank">--</option>
+  <option id="016">Ponyta</option>
+  <option id="019">Koffing</option>
+  <option id="016">Growlithe</option>
+  <option id="016">Grimer</option>
+  <option id="019">Weezing</option>
+  <option id="016">Muk</option>
+  <option id="016">Magmar</option>
+</select>
+<div id="mansion"></div><div id="mansionIMG"></div>
+
+
+<br>
+Pokemon Lab:
+<select id="PKMN_pl" onChange="pokemonLab()">
+  <option id="blank">--</option>
+  <option id="016">Seel</option>
+  <option id="019">Electrode</option>
+  <option id="016">Tangela</option>
+  <option id="016">Omanyte</option>
+  <option id="019">Kabuto</option>
+  <option id="016">Aerodactyl</option>
+</select>
+<div id="lab"></div><div id="labIMG"></div>
+
+
+<br>
+Victory Road:
+<select id="PKMN_vr" onChange="victoryRoad()">
+  <option id="blank">--</option>
+  <option id="016">Onix</option>
+  <option id="019">Machop</option>
+  <option id="016">Zubat</option>
+  <option id="016">Geodude</option>
+  <option id="019">Golbat</option>
+  <option id="016">Machoke</option>
+  <option id="019">Marowak</option>
+  <option id="016">Graveler</option>
+  <option id="016">Venomoth</option>
+  <option id="019">Moltres</option>
+</select>
+<div id="victory"></div><div id="victoryIMG"></div>
+
+
+
+
+</form>
+
+
+<script>
+printCounter();
+printVersion();
+printPallet();
+printR1();
+
+localStorage.setItem("name", "Hello World!"); //saves to the database, key/value
+document.write(localStorage.getItem("name")); //Hello World!
+localStorage.removeItem("name"); //deletes the matching item from the database
+
+function clickCounter()
+{
+	if (typeof(Storage)!=="undefined")
+  	{
+		if (localStorage.clickcount)
+		{
+			localStorage.clickcount=Number(localStorage.clickcount)+1;
+		} else {
+			localStorage.clickcount=1;
+		}
+	printCounter();
+	} else {
+		document.getElementById("result").innerHTML="Sorry, your browser does not support web storage...";
+	}
+}
+
+function clearStorage()
+{
+	localStorage.clear();
+	printCounter();
+	printVersion();
+	printPallet();
+	printR1();
+}
+
+function printCounter()
+{
+	if (localStorage.clickcount == undefined)
+	{
+		document.getElementById("result").innerHTML="You have clicked the button 0 time(s).";
+	} else {
+		document.getElementById("result").innerHTML="You have clicked the button " + localStorage.clickcount + " time(s).";
+	}
+}
+
+
+function gameVersion()
+{
+	localStorage.v = document.getElementById("PKMN_v").options[document.getElementById("PKMN_v").selectedIndex].text;
+	
+	console.log(document.getElementById("PKMN_v").options[document.getElementById("PKMN_v").selectedIndex].text);
+	
+	printVersion();
+}
+
+function palletTown()
+{
+	localStorage.pallet = document.getElementById("PKMN_pt").options[document.getElementById("PKMN_pt").selectedIndex].text;
+	localStorage.palletID = document.getElementById("PKMN_pt").options[document.getElementById("PKMN_pt").selectedIndex].id;
+	
+	console.log(document.getElementById("PKMN_pt").options[document.getElementById("PKMN_pt").selectedIndex].text);
+	console.log(document.getElementById("PKMN_pt").options[document.getElementById("PKMN_pt").selectedIndex].id);
+	
+	printPallet();
+}
+
+function route1()
+{
+	localStorage.r1 = document.getElementById("PKMN_r1").options[document.getElementById("PKMN_r1").selectedIndex].text;
+	localStorage.r1ID = document.getElementById("PKMN_r1").options[document.getElementById("PKMN_r1").selectedIndex].id;
+	
+	console.log(document.getElementById("PKMN_r1").options[document.getElementById("PKMN_r1").selectedIndex].text);
+	console.log(document.getElementById("PKMN_r1").options[document.getElementById("PKMN_r1").selectedIndex].id);
+	
+	printR1();
+}
+
+route = function(routeName, dropdown, routeID) {
+  routeName = document.getElementById(dropdown).options[document.getElementById(dropdown).selectedIndex].text;
+  routeID = document.getElementById(dropdown).options[document.getElementById(dropdown).selectedIndex].id;
+
+  console.log(document.getElementById(dropdown).options[document.getElementById(dropdown).selectedIndex].text);
+  console.log(document.getElementById(dropdown).options[document.getElementById(dropdown).selectedIndex].id);
+}
+
+function printVersion()
+{
+	console.log(localStorage.v);
+	
+	if (localStorage.v == undefined)
+	{
+		localStorage.v = "--";
+		document.getElementById('PKMN_v').value = "--";
+		document.body.style.backgroundColor = "#EDEDED";
+	}
+	if (localStorage.v == "Blue Version")
+	{
+		localStorage.v = "Blue Version";
+		document.body.style.background = "#ADCEEF";
+	}
+	if (localStorage.v == "Red Version")
+	{
+		localStorage.v = "Red Version";
+		document.body.style.background = "#FFA552";
+	}
+	
+	document.getElementById("version").innerHTML=localStorage.v;
+
+}
+
+
+function printPallet()
+{
+	
+	if (localStorage.pt_doa == "dead")
+	{
+		document.getElementById("palletIMG").style.backgroundColor = "#AAA";
+	} else {
+		document.getElementById('pt_d').checked = false;
+		document.getElementById('pt_a').checked = true;
+		document.getElementById("palletIMG").style.backgroundColor = "";
+	}
+		
+	if (localStorage.pallet == undefined)
+	{
+		localStorage.pallet = "--";
+		document.getElementById('PKMN_pt').value = "--";
+	}
+	
+	document.getElementById("pallet").innerHTML=localStorage.pallet;
+	
+	if (localStorage.palletID == undefined)
+	{
+		document.getElementById("palletIMG").innerHTML="<img src='pkmn/blank.png'>";
+	} else {
+		document.getElementById("palletIMG").innerHTML= "<img src='pkmn/"+localStorage.palletID+".png'>";
+	}
+}
+
+function printR1()
+{
+	if (localStorage.r1 == undefined)
+	{
+		localStorage.r1 = "--";
+		document.getElementById('PKMN_r1').value = "--";
+	}
+	
+	document.getElementById("route1").innerHTML=localStorage.r1;
+	
+	if (localStorage.r1ID == undefined)
+	{
+		document.getElementById("r1IMG").innerHTML="<img src='pkmn/blank.png'>";
+	} else {
+		document.getElementById("r1IMG").innerHTML= "<img src='pkmn/"+localStorage.r1ID+".png'>";
+	}
+}
+
+//printRoute(localStorage.r1, "PKMN_r1", "route1", localStorage.r1ID, "r1IMG");
+
+printRoute = function (routeName, dropdown, nameDiv, routeID, routeImage)
+{
+  if (routeName == undefined)
+  {
+    routeName == "--";
+    document.getElementById(dropdown).value = "--";
+  }
+
+  document.getElementById(nameDiv).innerHTML = routeName;
+
+  if (routeID == undefined)
+    {
+      document.getElementById(routeImage).innerHTML = "<img src='pkmn/blank.png'>";
+    } else {
+      document.getElementById(routeImage).innerHTML = "<img src='pkmn/"+routeID+".png'>";
+    }
+
+}
+
+</script>
+
+</body>
+</html>
+
+
